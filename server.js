@@ -24,6 +24,7 @@ io.on('connection', (socket) => {
 
     // accept friend request
     socket.on('acceptFriendRequest', data=>{
+      console.log(data, ' acceptFriendRequest ==>')
         const player = data.player;
         const friend = data.friend;
         const userPlayer = users.find(u=>u.socketId===player.socketId);
@@ -34,6 +35,7 @@ io.on('connection', (socket) => {
     });
     // notify  friend that you  choose tiger or goat
     socket.on('friendChoseItem', data=>{
+      console.log(data, ' friendChoseItem ==>')
         const player = data.player;
         const friend = data.friend;
         const chosenItem = data.item;
