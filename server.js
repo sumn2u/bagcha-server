@@ -27,6 +27,7 @@ io.on('connection', (socket) => {
       console.log(data, ' acceptFriendRequest ==>')
         const player = data.player;
         const friend = data.friend;
+        console.log(users, 'users ==>')
         const userPlayer = users.find(u=>u.socketId===player.socketId);
         const userFriend = users.find(u=>u.socketId===friend.socketId);
         userPlayer.friendId = userFriend.socketId;
