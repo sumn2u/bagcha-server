@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 
     // accept friend request
     socket.on('acceptFriendRequest', data=>{
-      //console.log(data, ' acceptFriendRequest ==>')
+    
         const player = data.player;
         const friend = data.friend;
         console.log(users, 'users ==>')
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
     });
     // notify  friend that you  choose tiger or goat
     socket.on('friendChoseItem', data=>{
-      console.log(data, ' friendChoseItem ==>')
+     
         const player = data.player;
         const friend = data.friend;
         const chosenItem = data.item;
@@ -66,10 +66,7 @@ io.on('connection', (socket) => {
         users.forEach((u,i)=>{
             if(u.socketId===socket.id){
                 users.splice(i,1);
-                console.log('socket disconnected added');
-                io.to(socket.id).emit('closeGame', {
-                      socketId: socket.id
-                  });
+                io.to(socket.id).emit('closeGame', { socketId:socket.id}); 
             }
         })
     });
