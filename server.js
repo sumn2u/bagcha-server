@@ -66,6 +66,7 @@ io.on('connection', (socket) => {
         users.forEach((u,i)=>{
             if(u.socketId===socket.id){
                 users.splice(i,1);
+                console.log(" i am sss",u.socketId,  socket.id)
                 io.to(socket.id).emit('closeGame', { socketId:socket.id}); 
             }
         })
