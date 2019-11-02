@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 
     // accept friend request
     socket.on('acceptFriendRequest', data=>{
-      console.log(data, ' acceptFriendRequest ==>')
+      //console.log(data, ' acceptFriendRequest ==>')
         const player = data.player;
         const friend = data.friend;
         console.log(users, 'users ==>')
