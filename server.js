@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const users =[]; // {name,avatar}
+let users =[]; // {name,avatar}
 app.use(express.static('.'));
 
 
@@ -62,37 +62,21 @@ io.on('connection', (socket) => {
     socket.on('gameEnded', (data) => {
         socket.broadcast.to(data.room).emit('gameEnd', data);
     });
-    socket.on('disconnecting', (reason) => {
-     //let rooms = Object.keys(socket.rooms);
-     console.log(reason, "sss ==>>>>>");
-     users.forEach((u,i)=>{
-            if(u.socketId===socket.id){
-                users.splice(i,1);
-                console.log(" i am sss",u.socketId, u)
-                io.to(u.friendId).emit('closeGame', { socketId:'dd'}); 
-                io.to(u.socketId).emit('closeGame', { socketId:'ddd'}); 
-                socket.emit('closeGame', { socketId:'ddd'})
-            }
-        });
-    });
+    
   
     socket.on('disconnect', (reason) => {
       console.log(reason, 'reason ==>')
-       // let person = users.find(user => user.socketId ==socket.id);
-       // console.log(person, 'person ===>')
-       // if(person){
-       //   console.log(person, 'person  inside===>');
-       //   // users.splice(i,1);
-       //   io.to(person.friendId).emit('closeGame', {person: person});
-       // }
-        users.forEach((u,i)=>{
-            if(u.socketId===socket.id){
-                users.splice(i,1);
-                console.log(" i am sss",u.socketId, u)
-                io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
-                io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
-            }
-        })
+       let person = users.find(user => user.socketId ===socket.id);
+       console.log(person, 'person ===>')
+      console.log(users,'ddd ===>')
+       if(person){
+         console.log(person, 'person  inside===>');
+         // users.splice(i,1);
+          users = users.filter(user => user.socketId !==socket.id);
+         console.log(users, 'ddd')
+         io.to(person.friendId).emit('closeGame', {person: person});
+       }
+
     })
 });
 
