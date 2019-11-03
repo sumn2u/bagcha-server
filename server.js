@@ -62,12 +62,14 @@ io.on('connection', (socket) => {
     socket.on('gameEnded', (data) => {
         socket.broadcast.to(data.room).emit('gameEnd', data);
     });
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (reason) => {
+      console.log(reason, 'reason ==>')
        let person = users.find(user => user.socketId ==socket.id);
        console.log(person, 'person ===>')
        if(person){
          console.log(person, 'person  inside===>');
-         socket.broadcast.to(person.friendId).emit('closeGame', {person: person});
+         // users.splice(i,1);
+         io.to(person.friendId).emit('closeGame', {person: person});
        }
     //     users.forEach((u,i)=>{
     //         if(u.socketId===socket.id){
