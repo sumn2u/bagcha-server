@@ -66,7 +66,8 @@ io.on('connection', (socket) => {
        let person = users.find(user => user.socketId ==socket.id);
        console.log(person, 'person ===>')
        if(person){
-         console.log(person, 'person  inside===>')
+         console.log(person, 'person  inside===>');
+         socket.broadcast.to(person.friendId).emit('closeGame', {person: person});
        }
     //     users.forEach((u,i)=>{
     //         if(u.socketId===socket.id){
