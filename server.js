@@ -62,6 +62,19 @@ io.on('connection', (socket) => {
     socket.on('gameEnded', (data) => {
         socket.broadcast.to(data.room).emit('gameEnd', data);
     });
+    socket.on('disconnecting', (reason) => {
+     //let rooms = Object.keys(socket.rooms);
+     console.log(reason, "sss ==>>>>>");
+     users.forEach((u,i)=>{
+            if(u.socketId===socket.id){
+                users.splice(i,1);
+                console.log(" i am sss",u.socketId, u)
+                io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
+                io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
+            }
+        });
+    });
+  
     socket.on('disconnect', (reason) => {
       console.log(reason, 'reason ==>')
        // let person = users.find(user => user.socketId ==socket.id);
