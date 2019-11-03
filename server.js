@@ -66,7 +66,7 @@ io.on('connection', (socket) => {
        let person = users.find(user => user.socketId ==socket.id);
        console.log(person, 'person ===>')
        if(person){
-         onsole.log(person, 'person  inside===>')
+         console.log(person, 'person  inside===>')
        }
     //     users.forEach((u,i)=>{
     //         if(u.socketId===socket.id){
@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
     //             io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
     //         }
     //     })
-    // });
+    })
 });
 
 server.listen(process.env.PORT || 5000);
