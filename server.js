@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
          io.to(person.friendId).emit('closeGame', {person: person});
        }
 
-    })
+    });
 });
 
 server.listen(process.env.PORT || 5000);
