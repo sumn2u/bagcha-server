@@ -64,21 +64,21 @@ io.on('connection', (socket) => {
     });
     socket.on('disconnect', (reason) => {
       console.log(reason, 'reason ==>')
-       let person = users.find(user => user.socketId ==socket.id);
-       console.log(person, 'person ===>')
-       if(person){
-         console.log(person, 'person  inside===>');
-         // users.splice(i,1);
-         io.to(person.friendId).emit('closeGame', {person: person});
-       }
-    //     users.forEach((u,i)=>{
-    //         if(u.socketId===socket.id){
-    //             users.splice(i,1);
-    //             console.log(" i am sss",u.socketId, u)
-    //             io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
-    //             io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
-    //         }
-    //     })
+       // let person = users.find(user => user.socketId ==socket.id);
+       // console.log(person, 'person ===>')
+       // if(person){
+       //   console.log(person, 'person  inside===>');
+       //   // users.splice(i,1);
+       //   io.to(person.friendId).emit('closeGame', {person: person});
+       // }
+        users.forEach((u,i)=>{
+            if(u.socketId===socket.id){
+                users.splice(i,1);
+                console.log(" i am sss",u.socketId, u)
+                io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
+                io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
+            }
+        })
     })
 });
 
