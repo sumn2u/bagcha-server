@@ -63,14 +63,20 @@ io.on('connection', (socket) => {
         socket.broadcast.to(data.room).emit('gameEnd', data);
     });
     socket.on('disconnect', () => {
-        users.forEach((u,i)=>{
-            if(u.socketId===socket.id){
-                users.splice(i,1);
-                console.log(" i am sss",u.socketId, u)
-                io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
-            }
-        })
-    });
+       let person = users.find(user => user.socketId ==socket.id);
+       console.log(person, 'person ===>')
+       if(person){
+         onsole.log(person, 'person  inside===>')
+       }
+    //     users.forEach((u,i)=>{
+    //         if(u.socketId===socket.id){
+    //             users.splice(i,1);
+    //             console.log(" i am sss",u.socketId, u)
+    //             io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
+    //             io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
+    //         }
+    //     })
+    // });
 });
 
 server.listen(process.env.PORT || 5000);
