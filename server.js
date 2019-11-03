@@ -69,8 +69,9 @@ io.on('connection', (socket) => {
             if(u.socketId===socket.id){
                 users.splice(i,1);
                 console.log(" i am sss",u.socketId, u)
-                io.to(u.friendId).emit('closeGame', { socketId:socket.id}); 
-                io.to(u.socketId).emit('closeGame', { socketId:socket.id}); 
+                io.to(u.friendId).emit('closeGame', { socketId:'dd'}); 
+                io.to(u.socketId).emit('closeGame', { socketId:'ddd'}); 
+                socket.emit('closeGame', { socketId:'ddd'})
             }
         });
     });
