@@ -27,7 +27,6 @@ io.on('connection', (socket) => {
     
         const player = data.player;
         const friend = data.friend;
-        console.log(users, 'users ==>')
         const userPlayer = users.find(u=>u.socketId===player.socketId);
         const userFriend = users.find(u=>u.socketId===friend.socketId);
         userPlayer.friendId = userFriend.socketId;
@@ -65,15 +64,9 @@ io.on('connection', (socket) => {
     
   
     socket.on('disconnect', (reason) => {
-      console.log(reason, 'reason ==>')
        let person = users.find(user => user.socketId ===socket.id);
-       console.log(person, 'person ===>')
-      console.log(users,'ddd ===>')
        if(person){
-         console.log(person, 'person  inside===>');
-         // users.splice(i,1);
-          users = users.filter(user => user.socketId !==socket.id);
-         console.log(users, 'ddd')
+         users = users.filter(user => user.socketId !==socket.id);
          io.to(person.friendId).emit('closeGame', {person: person});
        }
 
